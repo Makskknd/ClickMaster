@@ -1,0 +1,42 @@
+version: "3.6"
+
+services:
+  ch-master:
+    container_name: ch_master
+    image: yandex/clickhouse-server
+    ports:
+      - 91:9000
+      - 81:8123
+    volumes:
+      - type: volume
+        source: ch-master-data
+        target: /var/lib/clickhouse
+      - type: volume
+        source: ch-master-logs
+        target: /var/log/clickhouse-server
+      - ./config/master-config.xml:/etc/clickhouse-server/config.xml
+      - ./config/users.xml:/etc/clickhouse-server/users.xml
+
+  zk-1:
+    container_name: zk-1
+    hostname: zk-1
+    image: bitnami/zookeeper:3.6.2
+    ports:
+      - 21811:2181
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVER_ID=1
+      - ZOO_SERVERS=zk1:2888:3888
+
+  zoonavigator:
+    container_name: zoonavigator
+    image: elkozmon/zoonavigator
+    ports:
+      - 9000:9000
+
+volumes:
+  ch-master-data:
+  ch-master-logs:
+
+
+
