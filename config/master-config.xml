@@ -95,11 +95,11 @@
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
-                    <host>192.168.1.99</host>
+                    <host>ch-sub-1</host>
                     <port>92</port>
                 </replica>
                 <replica>
-                    <host>192.168.1.98</host>
+                    <host>ch-sub-2</host>
                     <port>92</port>
                 </replica>
             </shard>
